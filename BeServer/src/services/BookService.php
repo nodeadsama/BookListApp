@@ -4,7 +4,7 @@ require_once __DIR__ . "/../config/database.php";
 
 class BookService {
 
-    //getAllBooks func, Returns all books and their basic info 
+    // getAllBooks func, Returns all books and their basic info 
     public function getAllBooks($sortBy = 'title', $order = 'asc') {
 
         $pdo = getConnection();
@@ -26,6 +26,7 @@ class BookService {
             ? strtoupper($order)
             : 'ASC';
 
+        //DB search
         $sql = "
             SELECT 
                 id, 
@@ -43,11 +44,11 @@ class BookService {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //getBookById func, Returns single book and all its info
-    public function getBookById($id)
-    {
+    // getBookById func, Returns single book and all its info
+    public function getBookById($id) {
         $pdo = getConnection();
 
+        // DB search
         $sql = "
             SELECT 
                 id,
@@ -71,4 +72,75 @@ class BookService {
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    // importBooks func, Imports JSON list of books into DB
+    public function importBooks(array $books): array {
+        $pdo = getConnection();
+        $imported = [];
+        $errors = [];
+
+        foreach ($books as $index => $book) {
+            
+            // Validate required fields
+            if (empty($book['title']) || empty($book['author']) || empty($book['genre'])) {
+                $errors[] = [
+                    "index" => $index,
+                    "error" => "Required fields missing",
+                    "message" => "Missing title, author, or genre"
+                ];
+                continue;
+            }
+
+            // Validate rating (Must be number between 0-10)
+            if (isset($book['rating'])) {
+                if (!is_numeric($book['rating']) || $book['rating'] < 0 || $book['rating'] > 10) {
+                    $errors[] = [
+                        "index" => $index,
+                        "error" => "Invalid rating field",
+                        "message" => "Rating must be a number between 0-10, included"
+                    ];
+                    continue;
+                }
+                $rating = $book['rating'];
+            } else {
+                //Rating = 0 if missing
+                $rating = 0;
+            }
+            
+            //DB insertion
+            try {
+                $sql = "
+                    INSERT INTO books (title, author, genre, release_date, rating, annotation, description, imgPath)
+                    VALUES (:title, :author, :genre, :release_date, :rating, :annotation, :description, :imgPath)
+                ";
+
+                $stmt = $pdo->prepare($sql);
+
+                $stmt->execute([
+                    'title' => $book['title'],
+                    'author' => $book['author'],
+                    'genre' => $book['genre'],
+                    'release_date' => $book['release_date'] ?? null,
+                    'rating' => $rating,
+                    'annotation' => $book['annotation'] ?? null,
+                    'description' => $book['description'] ?? null,
+                    'imgPath' => $book['imgPath'] ?? null
+                ]);
+
+                $imported[] = [
+                    'index' => $index,
+                    'id' => $pdo->lastInsertId(),
+                    'title' => $book['title']
+                ];
+            } catch (PDOException $e) {
+                $errors[] = [
+                    'index' => $index,
+                    'message' => 'Database error: ' . $e->getMessage()
+                ];
+            }
+        }
+
+        return ['imported' => $imported, 'errors' => $errors];
+    }
+
 }
