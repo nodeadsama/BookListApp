@@ -19,4 +19,6 @@ $bookController = new BookController();
 $app->get('/books', [$bookController, 'getBooks']);
 $app->get('/books/{id}', [$bookController, 'getBook']);
 
+$app->post('/books/import', [$bookController, 'importBooks']);
+
 $app->run();
