@@ -26,12 +26,12 @@ class BookController {
         return $response->withHeader('Content-Type', 'application/json');
     }
 
-    public function getBook($request, $response, $args)
-    {
+    public function getBook($request, $response, $args) {
         $id = (int)$args['id'];
 
         $book = $this->service->getBookById($id);
 
+        //Check if book exists
         if (!$book) {
             $response->getBody()->write(
                 json_encode([
@@ -49,6 +49,28 @@ class BookController {
             json_encode($book)
         );
 
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function importBooks($request, $response) {
+        $data = $request->getParsedBody(); // JSON expected (list of books)
+
+        //Validate books (list of books expected)
+        if (!isset($data['books']) || !is_array($data['books'])) {
+            $response->getBody()->write(
+                json_encode([
+                    "error" => "Wrong request",
+                    "Message" => "JSON with list of books expected"
+                ])
+            );
+            return $response
+                ->withStatus(400)
+                ->withHeader('Content-Type', 'application/json');
+        }
+
+        $result = $this->service->importBooks($data['books']);
+
+        $response->getBody()->write(json_encode($result));
         return $response->withHeader('Content-Type', 'application/json');
     }
 }
