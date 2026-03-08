@@ -143,4 +143,68 @@ class BookService {
         return ['imported' => $imported, 'errors' => $errors];
     }
 
+    // addBook func, Adds single book into DB
+    public function addBook(array $book): array {
+        $pdo = getConnection();
+
+        // Validate required fields
+        if (empty($book['title']) || empty($book['author']) || empty($book['genre'])) {
+            return [
+                "success" => false,
+                "error" => "Required fields missing",
+                "message" => "Missing title, author, or genre"
+            ];
+        }
+
+        // Validate rating (Must be number between 0-10)
+        if (isset($book['rating'])) {
+            if (!is_numeric($book['rating']) || $book['rating'] < 0 || $book['rating'] > 10) {
+                return [
+                    "success" => false,
+                    "error" => "Invalid rating field",
+                    "message" => "Rating must be a number between 0-10, included"
+                ];
+            }
+            $rating = $book['rating'];
+        } else {
+            // Rating = 0 if missing
+            $rating = 0;
+        }
+
+        // DB insertion
+        try {
+            $sql = "
+                INSERT INTO books 
+                (title, author, genre, release_date, rating, annotation, description, imgPath)
+                VALUES (:title, :author, :genre, :release_date, :rating, :annotation, :description, :imgPath)
+            ";
+
+            $stmt = $pdo->prepare($sql);
+
+            $stmt->execute([
+                'title' => $book['title'],
+                'author' => $book['author'],
+                'genre' => $book['genre'],
+                'release_date' => $book['release_date'] ?? null,
+                'rating' => $rating,
+                'annotation' => $book['annotation'] ?? null,
+                'description' => $book['description'] ?? null,
+                'imgPath' => $book['imgPath'] ?? null
+            ]);
+
+            return [
+                "success" => true,
+                "id" => $pdo->lastInsertId(),
+                "title" => $book['title']
+            ];
+
+        } catch (PDOException $e) {
+            return [
+                "success" => false,
+                "error" => "Database error",
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
 }
