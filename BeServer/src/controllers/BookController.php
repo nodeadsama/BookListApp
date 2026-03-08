@@ -25,4 +25,30 @@ class BookController {
 
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+    public function getBook($request, $response, $args)
+    {
+        $id = (int)$args['id'];
+
+        $book = $this->service->getBookById($id);
+
+        if (!$book) {
+            $response->getBody()->write(
+                json_encode([
+                    "error" => "Book not found",
+                    "Book Id" => $id  
+                ])
+            );
+
+            return $response
+                ->withStatus(404)
+                ->withHeader('Content-Type', 'application/json');
+        }
+
+        $response->getBody()->write(
+            json_encode($book)
+        );
+
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }
