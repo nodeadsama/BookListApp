@@ -13,5 +13,9 @@ $app->get('/hello', function ($request, $response, $args) {
     return $response;
 });
 
+require_once __DIR__ . '/../src/Controllers/BookController.php';
+$bookController = new BookController();
+
+$app->get('/books', [$bookController, 'getBooks']);
 
 $app->run();
