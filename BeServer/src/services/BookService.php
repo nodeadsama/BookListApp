@@ -27,7 +27,7 @@ class BookService {
             : 'ASC';
 
         $sql = "
-            SELECT id, title, author, release_date, rating
+            SELECT id, title, author, release_date, rating, imgPath
             FROM books
             ORDER BY $sortColumn $sortOrder
         ";
