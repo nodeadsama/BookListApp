@@ -17,5 +17,6 @@ require_once __DIR__ . '/../src/Controllers/BookController.php';
 $bookController = new BookController();
 
 $app->get('/books', [$bookController, 'getBooks']);
+$app->get('/books/{id}', [$bookController, 'getBook']);
 
 $app->run();
