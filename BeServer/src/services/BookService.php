@@ -27,7 +27,13 @@ class BookService {
             : 'ASC';
 
         $sql = "
-            SELECT id, title, author, release_date, rating, imgPath
+            SELECT 
+                id, 
+                title, 
+                author, 
+                release_date, 
+                rating, 
+                imgPath
             FROM books
             ORDER BY $sortColumn $sortOrder
         ";
@@ -35,5 +41,34 @@ class BookService {
         $stmt = $pdo->query($sql);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    //getBookById func, Returns single book and all its info
+    public function getBookById($id)
+    {
+        $pdo = getConnection();
+
+        $sql = "
+            SELECT 
+                id,
+                title,
+                author,
+                genre,
+                release_date,
+                rating,
+                annotation,
+                description,
+                imgPath
+            FROM books
+            WHERE id = :id
+        ";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            'id' => $id
+        ]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
