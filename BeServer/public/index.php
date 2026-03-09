@@ -25,4 +25,7 @@ $app->post('/books', [$bookController, 'addBook']);
 
 $app->put('/books/{id}', [$bookController, 'updateBook']);
 
+$app->delete('/books/{id}', [$bookController, 'deleteBook']);
+
+
 $app->run();
