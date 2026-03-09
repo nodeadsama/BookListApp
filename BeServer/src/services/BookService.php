@@ -279,7 +279,7 @@ class BookService {
         $pdo = getConnection();
 
         // DB search
-        $sqlCheck = "SELECT id, title FROM books WHERE id = :id";
+        $sqlCheck = "SELECT id, title, imgPath FROM books WHERE id = :id";
         $stmtCheck = $pdo->prepare($sqlCheck);
         $stmtCheck->execute(['id' => $id]);
         $book = $stmtCheck->fetch(PDO::FETCH_ASSOC);
@@ -292,34 +292,33 @@ class BookService {
             ];
         }
 
-        // DB deletion
+        // Deletion
         try {
-            $sql = "DELETE FROM books WHERE id = :id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(['id' => $id]);
-            
-            /*
-            // Check if img exists
-            if (!empty($book['imgPath'])) {
-                //$imageFile = __DIR__ . '/../../public/' . $book['imgPath'];
-                $imageFile = 'C:/xampp/htdocs/BookListApp/public/' . $book['imgPath'];
 
-                // Delete image
+            // Img file deletion
+            if (!empty($book['imgPath'])) {
+                $imageFile = __DIR__ . '/../../public/' . $book['imgPath'];
+
                 if (file_exists($imageFile)) {
                     unlink($imageFile);
                 }
             }
-            */    
+
+            // DB deletion
+            $sql = "DELETE FROM books WHERE id = :id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['id' => $id]);
 
             return [
-                'success' => true,
-                'id' => $id,
-                'title' => $book['title'],
+                "success" => true,
+                "id" => $id,
+                "title" => $book['title'],
             ];
         } catch (PDOException $e) {
             return [
-                'success' => false,
-                'error' => 'Database error: ' . $e->getMessage(),
+                "success" => false,
+                "error" => "Database error",
+                "message" =>  $e->getMessage()
             ];
         }
     }
