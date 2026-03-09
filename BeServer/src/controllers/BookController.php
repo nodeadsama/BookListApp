@@ -86,6 +86,7 @@ class BookController {
                 $uploadDir = __DIR__ . '/../../public/images/';
                 if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
 
+                //Creates unique filename
                 $filename = time() . '_' . preg_replace('/[^a-zA-Z0-9_\.-]/', '_', $image->getClientFilename());
                 $image->moveTo($uploadDir . $filename);
                 $imgPath = 'images/' . $filename;
@@ -96,6 +97,36 @@ class BookController {
         $parsedBody['imgPath'] = $imgPath;
 
         $result = $this->service->addBook($parsedBody);
+
+        $response->getBody()->write(json_encode($result));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function updateBook($request, $response, $args) {
+        $id = $args['id'];
+
+        $parsedBody = $request->getParsedBody(); // JSON expected (book details)
+        $uploadedFiles = $request->getUploadedFiles(); // Img expected (book picture)
+
+        // Handle img
+        $imgPath = null;
+        if (!empty($uploadedFiles['image'])) {
+            $image = $uploadedFiles['image'];
+            if ($image->getError() === UPLOAD_ERR_OK) {
+                $uploadDir = __DIR__ . '/../../public/images/';
+                if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+
+                //Creates unique filename
+                $filename = time() . '_' . preg_replace('/[^a-zA-Z0-9_\.-]/', '_', $image->getClientFilename());
+                $image->moveTo($uploadDir . $filename);
+                $imgPath = 'images/' . $filename;
+            }
+        }
+
+        // Merge image path into parsedBody
+        $parsedBody['imgPath'] = $imgPath;
+
+        $result = $this->service->updateBook($id, $parsedBody);
 
         $response->getBody()->write(json_encode($result));
         return $response->withHeader('Content-Type', 'application/json');
