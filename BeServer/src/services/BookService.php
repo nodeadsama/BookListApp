@@ -207,4 +207,70 @@ class BookService {
         }
     }
 
+    public function updateBook($id, $data) {
+        $pdo = getConnection();
+        
+        // Check if ID is number
+        if (!is_numeric($id)) {
+            return ["error" => "Invalid ID"];
+        }
+
+        // DB search
+        $stmt = $pdo->prepare("SELECT * FROM books WHERE id = ?");
+        $stmt->execute([$id]);
+        $book = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Check if book with this ID exists
+        if (!$book) {
+            return [
+                "error" => "Book not found",
+                "Book Id" => $id
+            ];
+        }
+
+        // Change provided fields
+        $title = $data['title'] ?? $book['title'];
+        $author = $data['author'] ?? $book['author'];
+        $genre = $data['genre'] ?? $book['genre'];
+        $rating = $data['rating'] ?? $book['rating'];
+        $releaseDate = $data['release_date'] ?? $book['release_date'];
+        $annotation = $data['annotation'] ?? $book['annotation'];
+        $description = $data['description'] ?? $book['description'];
+
+        $imgPath = $data['imgPath'] ?? $book['imgPath'];
+
+        // Validate rating (must be between 0–10)
+        if (!is_numeric($rating) || $rating < 0 || $rating > 10) {
+            return [
+                "success" => false,
+                "error" => "Invalid rating field",
+                "message" => "Rating must be a number between 0 and 10, included"
+            ];
+        }
+
+        // DB update
+        $sql = "UPDATE books
+                SET title=?, author=?, genre=?, rating=?, release_date=?, annotation=?, description=?, imgPath=?
+                WHERE id=?";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            $title,
+            $author,
+            $genre,
+            $rating,
+            $releaseDate,
+            $annotation,
+            $description,
+            $imgPath,
+            $id
+        ]);
+
+        return [
+            "success" => true,
+            "id" => $id
+        ];
+    }
+
 }
