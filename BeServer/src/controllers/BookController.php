@@ -131,4 +131,13 @@ class BookController {
         $response->getBody()->write(json_encode($result));
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+    public function deleteBook($request, $response, $args) {
+        $id = (int)$args['id'];
+
+        $result = $this->service->deleteBook($id);
+
+        $response->getBody()->write(json_encode($result));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }
