@@ -207,6 +207,7 @@ class BookService {
         }
     }
 
+    // updateBook func, Updates single book in DB
     public function updateBook($id, $data) {
         $pdo = getConnection();
         
@@ -271,6 +272,56 @@ class BookService {
             "success" => true,
             "id" => $id
         ];
+    }
+
+    // deleteBook func, Deletes single book from DB
+    public function deleteBook(int $id): array {
+        $pdo = getConnection();
+
+        // DB search
+        $sqlCheck = "SELECT id, title FROM books WHERE id = :id";
+        $stmtCheck = $pdo->prepare($sqlCheck);
+        $stmtCheck->execute(['id' => $id]);
+        $book = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+
+        // Check if book with this ID exists
+        if (!$book) {
+            return [
+                "error" => "Book not found",
+                "Book Id" => $id
+            ];
+        }
+
+        // DB deletion
+        try {
+            $sql = "DELETE FROM books WHERE id = :id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['id' => $id]);
+            
+            /*
+            // Check if img exists
+            if (!empty($book['imgPath'])) {
+                //$imageFile = __DIR__ . '/../../public/' . $book['imgPath'];
+                $imageFile = 'C:/xampp/htdocs/BookListApp/public/' . $book['imgPath'];
+
+                // Delete image
+                if (file_exists($imageFile)) {
+                    unlink($imageFile);
+                }
+            }
+            */    
+
+            return [
+                'success' => true,
+                'id' => $id,
+                'title' => $book['title'],
+            ];
+        } catch (PDOException $e) {
+            return [
+                'success' => false,
+                'error' => 'Database error: ' . $e->getMessage(),
+            ];
+        }
     }
 
 }
