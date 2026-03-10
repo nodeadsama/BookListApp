@@ -9,6 +9,16 @@ $app = AppFactory::create();
 $app->setBasePath('/BookListApp/public');
 $app->addBodyParsingMiddleware();
 
+// CORS Middleware
+$app->add(function ($request, $handler) {
+    $response = $handler->handle($request);
+
+    return $response
+        ->withHeader('Access-Control-Allow-Origin', '*') // allow all origins
+        ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+});
+
 $app->get('/hello', function ($request, $response, $args) {
     $response->getBody()->write("Hello from Slim!");
     return $response;
