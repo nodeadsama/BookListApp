@@ -1,9 +1,9 @@
-import { renderNavbar } from "./components/navbar.js";
+import { renderMainPage } from "./pages/mainpage.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
     console.log("Fe App started");
 
-    renderNavbar();
+    renderMainPage();
 
 });

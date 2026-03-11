@@ -1,0 +1,33 @@
+.book-card {
+    padding-top: 50px;
+    text-align: center;
+    width: 250px;
+
+    &__img {
+        width: 250px;
+        height: 370px;
+        object-fit: cover;
+
+        border-style:groove;
+        border-width: 10px;
+        border-color: $baseWhite;
+    }
+
+    &__title {
+        font-size: 1.7rem;
+        margin: 0.5rem 0;
+    }
+
+    &__author,
+    &__rating {
+        font-size: 1.2rem;
+        margin: 0.3rem 0;
+    }
+}
+
+.top-books {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
