@@ -1,0 +1,45 @@
+.book-table {
+    width: 80%;
+    margin: 40px auto;
+    border-collapse: collapse;
+    background: $baseWhite;
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background: $baseDark;
+        color: $baseWhite;
+        font-size: 1.1rem;
+
+        cursor: pointer;
+
+        &:hover {
+            background-color: lighten($baseDark, 15%);
+        }
+
+        &.active-sort {
+            background-color: lighten($baseDark, 20%);
+        }
+
+        .sort-arrow {
+            display: inline-block;
+            margin-left: 5px;
+            font-size: 0.8rem;
+        }
+    }
+
+    tr:hover {
+        background: $baseHover;
+    }
+
+    &__img {
+        width: 50px;
+        height: 75px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+}
