@@ -78,7 +78,14 @@ class BookService {
             'id' => $id
         ]);
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $book = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Add full URL to img path
+        if ($book && !empty($book['imgPath'])) {
+            $book['imgPath'] = 'http://localhost/BookListApp/public/' . $book['imgPath'];
+        }
+
+    return $book;
     }
 
     // importBooks func, Imports JSON list of books into DB
