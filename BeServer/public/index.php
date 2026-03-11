@@ -18,6 +18,9 @@ $app->add(function ($request, $handler) {
         ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
         ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 });
+$app->options('/{routes:.+}', function ($request, $response, $args) {
+    return $response->withStatus(200);
+});
 
 $app->get('/hello', function ($request, $response, $args) {
     $response->getBody()->write("Hello from Slim!");
