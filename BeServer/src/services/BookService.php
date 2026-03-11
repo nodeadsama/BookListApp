@@ -40,8 +40,16 @@ class BookService {
         ";
 
         $stmt = $pdo->query($sql);
+        $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Add full URL to img path
+        foreach ($books as &$book) {
+            if (!empty($book['imgPath'])) {
+                $book['imgPath'] = 'http://localhost/BookListApp/public/' . $book['imgPath'];
+            }
+        }
+
+        return $books;
     }
 
     // getBookById func, Returns single book and all its info
