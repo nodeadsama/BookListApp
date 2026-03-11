@@ -9,29 +9,46 @@ export function renderBookList(books, sortColumn = currentSort, sortOrder = curr
 
     let html = `
         <table class="book-table">
-            <thead>
-                <tr>
-                    <th>Cover</th>
-                    <th data-sort="title" class="${sortColumn === "title" ? "active-sort" : ""}">
-                        Title ${sortColumn === "title" ? (sortOrder === "asc" ? '▲' : '▼') : ''}
-                    </th>
-                    <th data-sort="author" class="${sortColumn === "author" ? "active-sort" : ""}">
-                        Author ${sortColumn === "author" ? (sortOrder === "asc" ? '▲' : '▼') : ''}
-                    </th>
-                    <th data-sort="releaseDate" class="${sortColumn === "releaseDate" ? "active-sort" : ""}">
-                        Release Date ${sortColumn === "releaseDate" ? (sortOrder === "asc" ? '▲' : '▼') : ''}
-                    </th>
-                    <th data-sort="rating" class="${sortColumn === "rating" ? "active-sort" : ""}">
-                        Rating ${sortColumn === "rating" ? (sortOrder === "asc" ? '▲' : '▼') : ''}
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
+        <thead>
+            <tr>
+                <th>Cover</th>
+
+                <th data-sort="title" class="${sortColumn === "title" ? "active-sort" : ""}">
+                    <div class="th-content">
+                        <span>Title</span>
+                        ${sortColumn === "title" ? `<span class="sort-arrow">${sortOrder === "asc" ? "▲" : "▼"}</span>` : ""}
+                    </div>
+                </th>
+
+                <th data-sort="author" class="${sortColumn === "author" ? "active-sort" : ""}">
+                    <div class="th-content">
+                        <span>Author</span>
+                        ${sortColumn === "author" ? `<span class="sort-arrow">${sortOrder === "asc" ? "▲" : "▼"}</span>` : ""}
+                    </div>
+                </th>
+
+                <th data-sort="releaseDate" class="${sortColumn === "releaseDate" ? "active-sort" : ""}">
+                    <div class="th-content">
+                        <span>Release Date</span>
+                        ${sortColumn === "releaseDate" ? `<span class="sort-arrow">${sortOrder === "asc" ? "▲" : "▼"}</span>` : ""}
+                    </div>
+                </th>
+
+                <th data-sort="rating" class="${sortColumn === "rating" ? "active-sort" : ""}">
+                    <div class="th-content">
+                        <span>Rating</span>
+                        ${sortColumn === "rating" ? `<span class="sort-arrow">${sortOrder === "asc" ? "▲" : "▼"}</span>` : ""}
+                    </div>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
     `;
 
     books.forEach(book => {
         html += `
-            <tr>
+            <tr data-id="${book.id}" class="book-row">
                 <td><img src="${book.imgPath}" class="book-table__img"></td>
                 <td>${book.title}</td>
                 <td>${book.author}</td>

@@ -15,6 +15,21 @@
         color: $baseWhite;
         font-size: 1.1rem;
 
+        .th-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .sort-arrow {
+            display: inline-block;
+            margin-left: 5px;
+            font-size: 1.5rem;
+        }
+    }
+
+    th[data-sort] {
         cursor: pointer;
 
         &:hover {
@@ -23,12 +38,6 @@
 
         &.active-sort {
             background-color: lighten($baseDark, 20%);
-        }
-
-        .sort-arrow {
-            display: inline-block;
-            margin-left: 5px;
-            font-size: 0.8rem;
         }
     }
 
