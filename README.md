@@ -11,7 +11,6 @@
 
 ### 1. Install XAMPP
 - Download from [https://www.apachefriends.org/index.html](https://www.apachefriends.org/index.html)
-- Start **Apache** and **MySQL** from the XAMPP control panel.
 
 ### 2. Install Composer
 - Download from [https://getcomposer.org/download/](https://getcomposer.org/download/)
