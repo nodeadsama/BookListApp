@@ -39,7 +39,7 @@ $app->get('/books/{id}', [$bookController, 'getBook']);
 $app->post('/books/import', [$bookController, 'importBooks']);
 $app->post('/books', [$bookController, 'addBook']);
 
-$app->put('/books/{id}', [$bookController, 'updateBook']);
+$app->post('/books/{id}', [$bookController, 'updateBook']);
 
 $app->delete('/books/{id}', [$bookController, 'deleteBook']);
 
