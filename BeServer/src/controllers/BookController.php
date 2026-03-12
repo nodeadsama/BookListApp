@@ -19,6 +19,13 @@ class BookController {
 
         $books = $this->service->getAllBooks($sortBy, $order);
 
+        // Add full URL to img path
+        foreach ($books as &$book) {
+            if (!empty($book['imgPath'])) {
+                $book['imgPath'] = 'http://localhost/BookListApp/public/' . $book['imgPath'];
+            }
+        }
+
         $response->getBody()->write(
             json_encode($books)
         );
@@ -43,6 +50,11 @@ class BookController {
             return $response
                 ->withStatus(404)
                 ->withHeader('Content-Type', 'application/json');
+        }
+
+        // Add full URL to img path
+        if (!empty($book['imgPath'])) {
+            $book['imgPath'] = 'http://localhost/BookListApp/public/' . $book['imgPath'];
         }
 
         $response->getBody()->write(
@@ -113,8 +125,17 @@ class BookController {
         if (!empty($uploadedFiles['image'])) {
             $image = $uploadedFiles['image'];
             if ($image->getError() === UPLOAD_ERR_OK) {
+                $book = $this->service->getBookById($id);
                 $uploadDir = __DIR__ . '/../../public/images/';
                 if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+
+                 // Delete old image if exists
+                if (!empty($book['imgPath'])) {
+                    $oldPath = __DIR__ . '/../../public/' . $book['imgPath'];
+                    if (file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
+                }
 
                 //Creates unique filename
                 $filename = time() . '_' . preg_replace('/[^a-zA-Z0-9_\.-]/', '_', $image->getClientFilename());
@@ -124,7 +145,9 @@ class BookController {
         }
 
         // Merge image path into parsedBody
-        $parsedBody['imgPath'] = $imgPath;
+        if ($imgPath !== null) {
+            $parsedBody['imgPath'] = $imgPath;
+        }
 
         $result = $this->service->updateBook($id, $parsedBody);
 
