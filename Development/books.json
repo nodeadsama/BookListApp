@@ -1,0 +1,54 @@
+{
+  "books": [
+    {
+      "title": "Hobit aneb Cesta tam a zase zpátky",
+      "author": "J.R.R. Tolkien",
+      "genre": "Fantasy",
+      "rating": 8,
+      "release_date": "21-08-1937",
+      "annotation": "Hobit byla původně pohádka vyprávěná dětem Tolkienovým",
+      "description": "Hobit je v prvním plánu pohádkový příběh o velké cestě čaroděje Gandalfa, družiny trpaslíků a hobita Bilba Pytlíka za pokladem střeženým drakem Šmakem. V plánu druhém je to ovšem jeden z prvních kamenů rozsáhlého a světoznámého cyklu příběhů, legend a mýtů z dávné Středozemě, které svého autora proslavily po celém světě.",
+      "imgPath": "images/Hobbit_Cover.jpg"
+    },
+    {
+      "title": "1984",
+      "author": "George Orwell",
+      "genre": "Dystopie",
+      "rating": 10,
+      "release_date": "08-06-1949",
+      "annotation": "Ústřední heslo oficiální ideologie Oceánie tzv. Angsoc zní: Válka je mír, svoboda je otroctví, nevědomost je síla.",
+      "description": "Winston Smith provede v dubnu 1984 něco nepřípustného. Ve válečných podmínkách Oceánie drcené krutovládou jedné Strany si začne psát deník, kterému svěřuje pochyby, jež ho už léta mučí. Úředník londýnského Ministerstva pravdy, kde se retušují, falšují či přímo likvidují dějiny, však ve svých zápiscích obtížně hledá srovnání s dřívějšími normálními časy, jejichž útržky doluje ze zasutých vzpomínek, dennodenně atakovaných přívalem propagandistických žvástů. Je snad jediný, kdo si v téhle zemi zachoval zdravý rozum a paměť? Opravdu kdysi zahlédl něco, co představuje zásadní trhlinu ve fazoně Velkého bratra, z jehož všeobjímající náruče není úniku? Ve zrůdném, avšak svým způsobem dokonalém totalitním režimu je Winstonova touha po špetce nezávislosti možná předem odsouzena ke zmaru…",
+      "imgPath": "images/1984_Cover.jpg"
+    },
+    {
+      "title": "Osudy dobrého vojáka Švejka",
+      "author": "Jaroslav Hašek",
+      "genre": "Román",
+      "rating": 9,
+      "release_date": "01-12-1923",
+      "annotation": "Kniha byla námětem několika hraných i animovaných filmů (loutkových od J. Trnky). Nejznámějších představitelem Švejka byl Rudolf Hrušinský.",
+      "description": "Švejk, obyčejný prodavač psů, se ocitá v historických událostech 20. století, kde jeho nevinný humor odhaluje absurdity vojenského a politického systému.",
+      "imgPath": "images/Svejk_Cover.jpg"
+    },
+    {
+      "title": "Kytice",
+      "author": "Karel Jaromír Erben",
+      "genre": "Báseň",
+      "rating": 6,
+      "release_date": "01-01-1853",
+      "annotation": "Inspirací pro báseň Svatební košile se stala pověst z hřbitovního kostela sv. Máří Magdaleny ve Velharticích.",
+      "description": "Kytice, stěžejní dílo Karla Jaromíra Erbena, je jedinou ucelenou sbírkou básní, kterou kdy slavný spisovatel vydal. Obsahuje třináct balad velmi silně ovlivněných slovanskou lidovou slovesností. Některé z nich byly inspirací i pro Antonína Dvořáka a sedm básní se stalo základem stejnojmenného filmu z roku 2000.",
+      "imgPath": "images/Kytice_Cover.jpg"
+    },
+    {
+      "title": "Dvacet tisíc mil pod mořem",
+      "author": "Jules Verne",
+      "genre": "Sci-fi",
+      "rating": 7,
+      "release_date": "01-01-1870",
+      "annotation": "Překlad názvu je nesprávný, protože v originále jde o dvacet tisíc lieues, což je starobylá jednotka délky, česky zvaná pěší hodina a odpovídá vzdálenosti, kterou člověk (kůň) ujde za jednu hodinu.",
+      "description": "Neznámé monstrum ohrožuje mezinárodní lodní dopravu, a tak se oceánograf Pierre Aronnax se společníky připojí k expedici, jež má škůdce vypátrat a zničit. Ten se ale brání a skupinku zajme. Ocitnou se na palubě futuristické ponorky Nautilus, které velí tajemný, charismatický kapitán Nemo. Zuřivě nenávidí civilizaci a léta žije v mořských hlubinách ukrytý ve svém kovovém kokonu, toulá se oceány, zkoumá vraky a útočí na lodě.Nautilus se nyní vydá na dalekou objevitelskou cestu. Pluje nad podmořskými lesy, korálovými hřbitovy, hlubokými mořskými příkopy i nad ruinami Atlantidy. Majestátní mořští tvorové, tajné podmořské chodby, neuvěřitelné poklady hlubin, boj s obří chobotnicí, pohřeb na mořském dnu – každý den přináší ještě překvapivější zázraky než ten předchozí a vše je prostoupeno tísnivým nebezpečím i objevitelskou radostí.",
+      "imgPath": "images/20000Mil_Cover.jpg"
+    }
+  ]
+}

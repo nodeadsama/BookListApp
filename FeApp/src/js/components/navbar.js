@@ -11,13 +11,23 @@ export function renderNavbar() {
             <h2>BookList App</h2>
         </div>
         <div class="navbar-right">
-            <button id="login-btn">${isAdmin() ? "Admin" : "Login"}</button>
+            <button 
+                id="login-btn" 
+                class="login-btn ${isAdmin() ? "logout" : ""}">
+                ${isAdmin() ? "Logout" : "Login"}
+            </button>
         </div>
 
         <!-- Login Modal -->
         <div id="login-modal" class="modal hidden">
             <div class="modal-content">
-                <h3>Login</h3>
+                <h2>Přihlášení do admin sekce</h2>
+                <h3>
+                    Pro přihlášení použijte:<br>
+                    Username: "admin"<br>
+                    Password: "admin"
+
+                </h3>
                 <input type="text" id="login-username" placeholder="Username">
                 <input type="password" id="login-password" placeholder="Password">
                 <div class="modal-buttons">
@@ -41,15 +51,26 @@ export function renderNavbar() {
     const modalLoginBtn = document.getElementById("modal-login-btn");
     const errorP = document.getElementById("login-error");
 
+    // Login/logout button click
     loginBtn.addEventListener("click", () => {
+
+        // If admin -> logout
+        if (isAdmin()) {
+            setAdminMode(false);
+            window.location.reload();
+            return;
+        }
+        // Else open modal
         modal.classList.remove("hidden");
         errorP.style.display = "none";
     });
 
+    // Login modal, cancel button click
     cancelBtn.addEventListener("click", () => {
         modal.classList.add("hidden");
     });
 
+    // Login modal, login button click
     modalLoginBtn.addEventListener("click", async () => {
         const username = document.getElementById("login-username").value;
         const password = document.getElementById("login-password").value;
@@ -60,7 +81,8 @@ export function renderNavbar() {
             setAdminMode(true);
             modal.classList.add("hidden");
             loginBtn.textContent = "Admin";
-            // Optionally, rerender main page to reflect admin changes
+            
+            //Reload changes
             window.location.reload();
         } else {
             errorP.textContent = result.message || "Login failed";

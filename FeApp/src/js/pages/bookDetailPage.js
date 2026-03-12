@@ -20,9 +20,9 @@ export function renderBookDetailPage(bookId) {
                         <h1>${book.title}</h1>
                         <h2>${book.author}</h2>
 
-                        <p><b>Genre:</b> ${book.genre}</p>
-                        <p><b>Release:</b> ${book.release_date}</p>
-                        <p><b>Annotation:</b> ${book.annotation}</p>
+                        <p><b>Žánr:</b> ${book.genre}</p>
+                        <p><b>Datum vydání:</b> ${book.release_date}</p>
+                        <p><b>Anotace:</b> ${book.annotation}</p>
                     </div>
 
                     <div class="book-detail__rating">

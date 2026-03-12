@@ -1,0 +1,18 @@
+.admin-actions {
+    width: 80%;
+    margin: 0 auto 10px auto;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#import-books-btn {
+    padding: 10px 18px;
+    background: #508aff;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#import-books-btn:hover {
+    background: #194bb1;
+}

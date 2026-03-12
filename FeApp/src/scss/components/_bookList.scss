@@ -8,6 +8,7 @@
         padding: 12px;
         text-align: left;
         border-bottom: 1px solid #ddd;
+        vertical-align: middle; // ensure all cells align vertically
     }
 
     th {
@@ -50,5 +51,47 @@
         height: 75px;
         object-fit: cover;
         border-radius: 4px;
+    }
+
+    // Options column (admin only)
+    td.book-options {
+        text-align: center;
+        vertical-align: middle;
+
+        .options-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option-icon {
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+
+            &:hover {
+                transform: scale(1.25);
+            }
+        }
+    }
+
+    // CreateBook row (admin only)
+    .create-book-row td {
+        cursor: pointer;
+        background: #007a29;
+        color: $baseWhite;
+        font-size: 3rem;
+        font-weight: bold;
+        text-align: center;      
+        vertical-align: middle;
+        height: 20px;        // fixed height
+        line-height: 20px;   // vertically center text              
+    }
+
+    .create-book-row td:hover {
+        background: #006823;
+        font-size: 4rem;
     }
 }

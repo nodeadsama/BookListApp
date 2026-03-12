@@ -1,0 +1,95 @@
+.book-form-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+h1 { margin-bottom: 25px; }
+
+form { display: flex; flex-direction: column; }
+
+.form-flex {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* IMAGE PREVIEW + DROP */
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#cover-preview {
+    width: 180px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.image-drop-card {
+    width: 180px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: border 0.2s;
+}
+
+.image-drop-card:hover { border: 2px solid #007bff; }
+
+.image-drop-card input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.image-drop-card span {
+    position: relative;
+    z-index: 2;
+    color: #555;
+    text-align: center;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+/* INPUTS */
+.inputs-card {
+    flex: 2 1 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, textarea, select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+textarea { resize: vertical; }
+
+button {
+    margin-top: 20px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Character counters */
+.char-counter { font-size: 12px; color: #777; text-align: right; margin-bottom: 8px; }
+.counter-max { color: red; }
+.input-max { border: 2px solid red; }

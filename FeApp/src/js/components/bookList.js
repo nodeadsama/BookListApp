@@ -1,6 +1,8 @@
 import { renderRatingStars } from "./ratingStars.js";
 import { getBooks } from "../api.js";
 
+import { isAdmin } from "../utils/admin.js";
+
 // Keep track of sort and order
 let currentSort = "title";
 let currentOrder = "desc";
@@ -11,35 +13,37 @@ export function renderBookList(books, sortColumn = currentSort, sortOrder = curr
         <table class="book-table">
         <thead>
             <tr>
-                <th>Cover</th>
+                <th>Obal</th>
 
                 <th data-sort="title" class="${sortColumn === "title" ? "active-sort" : ""}">
                     <div class="th-content">
-                        <span>Title</span>
+                        <span>Název</span>
                         ${sortColumn === "title" ? `<span class="sort-arrow">${sortOrder === "asc" ? "▲" : "▼"}</span>` : ""}
                     </div>
                 </th>
 
                 <th data-sort="author" class="${sortColumn === "author" ? "active-sort" : ""}">
                     <div class="th-content">
-                        <span>Author</span>
+                        <span>Autor</span>
                         ${sortColumn === "author" ? `<span class="sort-arrow">${sortOrder === "asc" ? "▲" : "▼"}</span>` : ""}
                     </div>
                 </th>
 
                 <th data-sort="releaseDate" class="${sortColumn === "releaseDate" ? "active-sort" : ""}">
                     <div class="th-content">
-                        <span>Release Date</span>
+                        <span>Datum vydání</span>
                         ${sortColumn === "releaseDate" ? `<span class="sort-arrow">${sortOrder === "asc" ? "▲" : "▼"}</span>` : ""}
                     </div>
                 </th>
 
                 <th data-sort="rating" class="${sortColumn === "rating" ? "active-sort" : ""}">
                     <div class="th-content">
-                        <span>Rating</span>
+                        <span>Hodnocení</span>
                         ${sortColumn === "rating" ? `<span class="sort-arrow">${sortOrder === "asc" ? "▲" : "▼"}</span>` : ""}
                     </div>
                 </th>
+
+                ${isAdmin() ? `<th>Options</th>` : ""}
 
             </tr>
         </thead>
@@ -54,9 +58,28 @@ export function renderBookList(books, sortColumn = currentSort, sortOrder = curr
                 <td>${book.author}</td>
                 <td>${book.release_date}</td>
                 <td>${renderRatingStars(book.rating)}</td>
+
+                <!-- User is admin -> +1 column (options)  -->
+                ${isAdmin() ? 
+                    `<td class="book-options">
+                        <div class="options-wrapper">
+                            <img src="images/editIcon.png" class="option-icon edit-icon" data-id="${book.id}">
+                            <img src="images/deleteIcon.png" class="option-icon delete-icon" data-id="${book.id}">
+                        </div>
+                    </td>`
+                : ""
+                }
             </tr>
         `;
     });
+    // User is admin -> +1 row (createBook button)
+    if (isAdmin()) {
+        html += `
+            <tr class="create-book-row" data-action="create">
+                <td colspan="6">+</td>
+            </tr>
+        `;
+    }
 
     html += `
             </tbody>
