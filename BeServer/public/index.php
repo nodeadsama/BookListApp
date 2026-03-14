@@ -27,8 +27,8 @@ $app->get('/hello', function ($request, $response, $args) {
     return $response;
 });
 
-require_once __DIR__ . '/../src/Controllers/BookController.php';
-require_once __DIR__ . '/../src/Controllers/UserController.php';
+require_once __DIR__ . '/../src/controllers/BookController.php';
+require_once __DIR__ . '/../src/controllers/UserController.php';
 $bookController = new BookController();
 $userController = new UserController();
 
